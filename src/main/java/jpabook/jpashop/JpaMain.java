@@ -1,6 +1,5 @@
-package hellojpa;
+package jpabook.jpashop;
 
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,25 +14,14 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        try {
-//            Member member = em.find(Member.class, 1L);
-
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(1)
-                    .setMaxResults(5)
-                    .getResultList();
-
-            for (Member member : result) {
-                System.out.println("member.getName() = " + member.getName());
-            }
-
+        try{
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
         }finally {
             em.close();
         }
-        
+
 
         emf.close();
     }
